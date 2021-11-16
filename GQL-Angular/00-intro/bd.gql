@@ -1,0 +1,50 @@
+type Profesor {
+    nombre: String
+    apellido: String
+    experiencia: Int
+}
+type Asignatura {
+  id: ID
+  nombre: String
+  horasLectivas: Int
+  profesor: Profesor
+}
+type Profesor {
+    nombre: String
+    apellido: String
+    experiencia: Int
+    curso: CursosUniversidad
+    modulo: CursosUniversidad = VUE
+}
+enum CursosUniversidad {
+    GRAPHQL
+    ANGULAR
+    VUE
+    REACT
+}
+interface PerfilUsuario {
+    nombre: String!
+    email: String!
+    edad: Int!
+}
+type Alumno implements PerfilUsuario {
+    nombre: String!
+    email: String!
+    edad: Int!
+    curso: String
+}
+
+type Query {
+    lista: String[]
+}
+type Mutation {
+    insertar(elemento: Int): [Int]
+}
+type Subscription {
+    infoInsertada: [Int]
+}
+
+type Query {
+    listaElementos: [String],
+    elemento (id:ID!): String
+}

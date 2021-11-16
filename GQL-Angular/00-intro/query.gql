@@ -1,0 +1,109 @@
+
+{
+  characters{
+    id
+    name
+    actor
+    total_episodes
+  }
+}
+###############
+{
+  character (id: 1){
+    id
+    name
+    actor
+    total_episodes
+  }
+}
+###############################
+{
+  character(id: 6) {
+    id
+    name
+    description
+  }
+  characters {
+    id
+    name
+    actor
+    total_episodes
+  }
+}
+###################################
+{
+  character(id: 6){
+    id
+    name
+  }
+
+  character(id: 6){
+    name
+    description
+    total_episodes
+  }
+}
+######################### Alias #######################################
+{
+  walter: character(id: 6){
+    id
+    name
+  }
+
+  pepe: character(id: 4){
+    name
+    description
+    total_episodes
+  }
+}
+######################### Fragments ######################
+fragment personaje on Character {
+  id
+  name
+  description
+  photo
+}
+{
+  pepe: character(id: 4) {
+    ...personaje
+  }
+  juan: character(id: 5) {
+    ...personaje
+  }
+  luis: character(id: 6) {
+    ...personaje
+  }
+}
+######################### Query Variables ######################
+query listaPersonajes($c1: ID!, $c2: ID!) {
+  p1: character(id: $c1) {
+    id
+    name
+  }
+  p2: character(id: $c2) {
+    id
+    name
+  }
+}
+QVL
+{
+  "c1": 7,
+  "c2": 3
+}
+############################## Mutations ################
+mutation {
+  addVote( character: 4){
+    id
+    character
+  }
+}
+mutation addVote($id:ID!){
+  addVote( character: $id){
+    id
+    character
+  }
+}
+################## skip/include ##############################3
+
+
+
