@@ -9,18 +9,31 @@ import { createServer } from "http";
 const typeDefs = require('./db/schema');
 const resolvers = require('./db/resolvers');
 
-const app = express();
+async function start(){
+    const app = express();
+    app.use(compression());
+    
+    
+    const schema: GraphQLSchema = makeExecutableSchema({typeDefs,resolvers });
+    const apolloServer = new ApolloServer({
+        schema,
+        introspection: true
+    });
+    await apolloServer.start();
+    apolloServer.applyMiddleware({app, cors: true})
+    
+    app.use("/hello", ( _, res ) => {
+        res.send("Bienvenidos al proyecto");
+    });
+    //redicreccionamos haccia /graphql para entrar en su playground
+    app.get("/", ( _, res ) => {
+        res.redirect("/graphql");
+    });
+    const httpServer = createServer(app);
+    
+    httpServer.listen({ port: 3025 }, () => {
+        console.log ("servidor => http://localhost:3025");
+    })
+}
 
-app.use(compression());
-app.use("/", ( _, res ) => {
-    res.send("Bienvenidos al proyecto");
-});
-
-const httpServer = createServer(app);
-
-const schema: GraphQLSchema = makeExecutableSchema({typeDefs,resolvers });
-const server = new ApolloServer({typeDefs,resolvers });
-
-httpServer.listen({ port: 3025 }, () => {
-    console.log ("servidor => http://localhost:3025");
-})
+start();
