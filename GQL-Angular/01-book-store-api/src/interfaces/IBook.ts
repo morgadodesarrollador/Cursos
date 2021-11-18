@@ -10,3 +10,11 @@ export interface IBook {
   status: string;
   authors:Array<string>;
 }
+
+
+export interface IResult {
+    status: boolean;
+    message: string;
+    list?: Array<IBook>;
+    item?: IBook;
+}
