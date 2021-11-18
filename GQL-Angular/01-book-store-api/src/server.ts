@@ -2,7 +2,6 @@ import { ApolloServer } from "apollo-server-express";
 import compression from "compression";
 import express, { Application } from "express";
 import { GraphQLSchema } from "graphql";
-import { makeExecutableSchema } from "graphql-tools";
 import { createServer, Server } from "http";
 const typeDefs = require('./db/schema');
 const resolvers = require('./db/resolvers');
@@ -12,8 +11,13 @@ class GraphQLServer {
     private app!: Application;
     private httpServer!: Server;
     private readonly DEFAULT_PORT = 3025;
+    private schema!: GraphQLSchema;
 
-    constructor(){
+    constructor( schema: GraphQLSchema){
+        if (schema === undefined){
+            throw new Error('necesitamos una defición de GraphQL')
+        }
+        this.schema = schema;
         this.init();
     }
     
@@ -31,9 +35,8 @@ class GraphQLServer {
 
     private async configApolloExpress() {
 
-        const schema: GraphQLSchema = makeExecutableSchema({typeDefs,resolvers });
         const apolloServer = new ApolloServer({
-            schema,
+            schema: this.schema,
             introspection: true
         });
         await apolloServer.start();

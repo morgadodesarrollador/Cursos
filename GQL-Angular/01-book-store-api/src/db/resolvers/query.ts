@@ -1,7 +1,7 @@
 
+import { IResolvers } from "@graphql-tools/utils";
 
-
-const resolvers = {
+const queryResolvers: IResolvers = {
     Query: {
         hello: () => "Hola a la API de GraphQL",
         helloWithName: (_: void, args: { name: string }, context: any, info: object) => {
@@ -12,5 +12,4 @@ const resolvers = {
     }
 }
 
-
-module.exports = resolvers;
+export default queryResolvers;
