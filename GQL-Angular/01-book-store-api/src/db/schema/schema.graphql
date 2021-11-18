@@ -4,11 +4,14 @@ type Query {
   peopleNumber: Int!
   # Lista de los elementos
   bookList: Result
-  peopleList: [People!]!
+  peopleList: Result
   # Elementos seleccionados
   book(id: ID!): Result
-  people(id: ID!): People!
+  people(id: ID!): Result
 }
+
+union DataBD = Book | People
+
 # Informaciómn de los libros
 type Book {
   id: ID!
@@ -34,9 +37,10 @@ type People {
 }
 #Definir Result de la API
 
+#Devuelve la info de la union, de Book y People
 type Result {
   status: Boolean!
   message: String!
-  list: [Book!]
-  item: Book
+  list: [DataBD!]
+  item: DataBD
 }

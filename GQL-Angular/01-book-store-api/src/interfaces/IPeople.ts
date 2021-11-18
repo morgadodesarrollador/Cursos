@@ -8,3 +8,4 @@ export interface IPeople {
   twitter?: string;
   books: Array<string>;
 }
+

@@ -12,9 +12,3 @@ export interface IBook {
 }
 
 
-export interface IResult {
-    status: boolean;
-    message: string;
-    list?: Array<IBook>;
-    item?: IBook;
-}

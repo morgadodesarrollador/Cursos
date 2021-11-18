@@ -1,7 +1,8 @@
 
 import { IResolvers } from "@graphql-tools/utils";
-import { IBook, IResult } from "../../interfaces/IBook";
+import { IBook } from "../../interfaces/IBook";
 import { IPeople } from '../../interfaces/IPeople';
+import { IResult } from "../../interfaces/IResult";
 import data from "../data";
 
 const queryResolvers: IResolvers = {
@@ -19,8 +20,12 @@ const queryResolvers: IResolvers = {
                 list: data.books
             };
         },
-        peopleList: (): Array<IPeople> => {
-            return data.people;
+        peopleList: (): IResult => {
+            return {
+                status: true,
+                message: "Listado de personas",
+                list: data.people
+            };
         },
         book: (_: void, args: {id: string}): IResult => {
             const bookFind = data.books.filter(
@@ -32,10 +37,15 @@ const queryResolvers: IResolvers = {
                 item: bookFind 
             }
         },
-        people: (_: void, args: {id: string}) => {
-            return data.people.filter(
-                (value) => value.id == args.id
-            )[0]
+        people: (_: void, args: {id: string}): IResult => {
+            const peopleFind = data.people.filter(
+                (value) => value.id == args.id )[0];
+            return {
+                status: peopleFind == undefined ? false : true,
+                message: peopleFind == undefined ? 
+                        `Persona ${args.id } no encontrado` : `Persona ${args.id } encontrada`,
+                item: peopleFind 
+            }
         }
 
     }
