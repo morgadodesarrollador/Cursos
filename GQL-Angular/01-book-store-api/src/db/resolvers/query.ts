@@ -17,6 +17,14 @@ const queryResolvers: IResolvers = {
         },
         peopleList: (): Array<IPeople> => {
             return data.people;
+        },
+        book: (_: void, args: {id: string}) => {
+            console.log(data.books.filter(
+                (value) => value.id === args.id
+            ));
+            return data.books.filter(
+                (value) => value.id === args.id
+            )[0]
         }
 
     }
