@@ -7,6 +7,7 @@ type Query {
   peopleList: [People!]!
   # Elementos seleccionados
   book(id: ID!): Book!
+  people(id: ID!): People!
 }
 # Informaciómn de los libros
 type Book {

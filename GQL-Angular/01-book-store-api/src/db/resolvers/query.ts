@@ -25,6 +25,11 @@ const queryResolvers: IResolvers = {
             return data.books.filter(
                 (value) => value.id === args.id
             )[0]
+        },
+        people: (_: void, args: {id: string}) => {
+            return data.people.filter(
+                (value) => value.id == args.id
+            )[0]
         }
 
     }
