@@ -24,7 +24,16 @@ const typesResolvers: IResolvers = {
             (book) => root.books.indexOf(book.id) > -1 )
         return result;
     }
-  }
+  },
+  Book: {
+    // booksBuy:  (root: object) => { //objeto completo id, name, books ...
+    byPeoplesBuy:  (root: {id: string}) => {
+         //console.log(root.books)
+         const result = data.people.filter( //itera en cada people
+             (people) => people.books.indexOf(root.id) > -1 ) // si existe ese id en people.books
+         return result;
+     }
+   }
 };
 
 export default typesResolvers;
