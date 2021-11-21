@@ -1,4 +1,6 @@
 import { IResolvers } from "@graphql-tools/utils";
+import data from "../data";
+
 // resolvemos los tipos de datos de las uniones
 const typesResolvers: IResolvers = {
   DataBD: {
@@ -14,6 +16,15 @@ const typesResolvers: IResolvers = {
       return null; // GraphQLError is thrown
     },
   },
+  People: {
+   // booksBuy:  (root: object) => { //objeto completo id, name, books ...
+    booksBuy:  (root: {books: Array<string>}) => {
+        //console.log(root.books)
+        const result = data.books.filter(
+            (book) => root.books.indexOf(book.id) > -1 )
+        return result;
+    }
+  }
 };
 
 export default typesResolvers;

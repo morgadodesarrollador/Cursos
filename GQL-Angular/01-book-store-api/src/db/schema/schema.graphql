@@ -34,6 +34,8 @@ type People {
   github: String
   twitter: String
   books: [String!]!
+  #Libros que ha comprado una persona
+  booksBuy: [Book]
 }
 #Definir Result de la API
 
