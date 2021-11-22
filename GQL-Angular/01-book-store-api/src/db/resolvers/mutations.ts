@@ -27,6 +27,12 @@ const mutationsResolvers: IResolvers = {
         },
         updateBook: (_:void, args: {book: IBook}): IResult => {
             //vemos si el libro existe
+            if (data.books.filter( (bookItem: IBook) => bookItem.id === args.book.id).length === 0){
+                return {
+                    status: false,
+                    message: `El libro introducido no existe`,
+                };
+            }
             let encontrado = false;
             for (let i = 0; (i < data.books.length) && !encontrado; i++) {
                 if (data.books[i].id === args.book.id){
