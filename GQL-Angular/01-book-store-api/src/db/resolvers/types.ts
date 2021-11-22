@@ -3,7 +3,7 @@ import data from "../data";
 
 // resolvemos los tipos de datos de las uniones
 const typesResolvers: IResolvers = {
-  DataBD: {
+  DataBD: { //type object DataBD
     __resolveType(obj: { name: string; isbn: string }) {
       // Only Author has a name field
       if (obj.name) {
@@ -16,7 +16,7 @@ const typesResolvers: IResolvers = {
       return null; // GraphQLError is thrown
     },
   },
-  People: {
+  People: { //typoe object People
     // booksBuy:  (root: object) => { //objeto completo id, name, books ...
     booksBuy: (root: { books: Array<string> }) => {
       //console.log(root.books)
@@ -39,7 +39,7 @@ const typesResolvers: IResolvers = {
         : `https://github.com/${root.github}`;
     },
   },
-  Book: {
+  Book: { //type object Book
     // booksBuy:  (root: object) => { //objeto completo id, name, books ...
     byPeoplesBuy: (root: { id: string }) => {
       //console.log(root.books)
