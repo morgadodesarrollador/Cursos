@@ -24,6 +24,23 @@ const mutationsResolvers: IResolvers = {
                 message: `Libro con el título ${args.book.title} ha sido añadido correctamente`,
                 item: args.book
             };
+        },
+        updateBook: (_:void, args: {book: IBook}): IResult => {
+            //vemos si el libro existe
+            let encontrado = false;
+            for (let i = 0; (i < data.books.length) && !encontrado; i++) {
+                if (data.books[i].id === args.book.id){
+                    (data.books[i] as IBook) = args.book;
+                    encontrado = true;
+                    //break;
+                }
+            }
+            //actualizamos el libro
+            return {
+                status: true,
+                message: `Libro ${args.book.title} actualizado correctamente`,
+                item: args.book
+            };
         }
         //especificamos todas las definiciones de mutaions.ts
         /*
