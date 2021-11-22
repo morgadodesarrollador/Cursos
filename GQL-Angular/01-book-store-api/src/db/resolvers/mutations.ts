@@ -8,8 +8,15 @@ const mutationsResolvers: IResolvers = {
     Mutation: { //tipo raiz
         addBook: (_:void, args: {book: IBook}): IResult => {
             console.log(args.book);
+            //validamos si el título es único
+            if (data.books.filter((value) => value.title === args.book.title).length > 0) {
+                return {
+                    status: false,
+                    message: `Libro con el título ${args.book.title} ya existe`
+                };
+            }
             //generamos el id automático
-            const idValue = +data.books[data.books.length-1].id;
+            const idValue = Number(data.books[data.books.length-1].id) + 1;
             args.book.id = String(idValue);
             (data.books as IBook[]).push(args.book);
             return {
