@@ -33,7 +33,7 @@ const mutationsResolvers: IResolvers = {
                     message: `El libro introducido no existe`,
                 };
             }
-            let encontrado = false;
+            let encontrado: boolean = false;
             for (let i = 0; (i < data.books.length) && !encontrado; i++) {
                 if (data.books[i].id === args.book.id){
                     (data.books[i] as IBook) = args.book;
@@ -47,13 +47,23 @@ const mutationsResolvers: IResolvers = {
                 message: `Libro ${args.book.title} actualizado correctamente`,
                 item: args.book
             };
+        },
+        deleteBook: (_:void, args: {id: string}): IResult => {
+            let encontrado: boolean = false;
+            let deleteItem: boolean = false;
+            for (let i = 0; (i < data.books.length) && !encontrado; i++) {
+                if (data.books[i].id === args.id){
+                    data.books.splice(i,1);
+                    deleteItem = true;
+                    encontrado = true;
+                    //break;
+                }
+            }
+            return {
+                status: deleteItem,
+                message: deleteItem ? "libro eliminado" : "no se ha eliminado ningún libro",
+            };
         }
-        //especificamos todas las definiciones de mutaions.ts
-        /*
-        addBook(id: ID!): Boolean
-        updateBook(id: ID!): Boolean
-        deleteBook(id: ID): Boolean
-        */
     }
 }
 
