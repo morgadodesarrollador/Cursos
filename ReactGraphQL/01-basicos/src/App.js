@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 function App() {
-  const edad = 18;
+  
   return (
-    <div className="App">
-     <Header />
-     <h2>Hola Mundo</h2>
-     <p>Edad { edad } años</p>
-    </div>
+   // <div className="App">
+    <Fragment>
+      <Header />
+
+      <Footer />
+     </Fragment>
+   // </div>
   );
 }
 
