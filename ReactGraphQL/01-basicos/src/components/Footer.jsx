@@ -1,10 +1,10 @@
 import React from 'react';
 
 //usamos arrow functions
-const Footer = () => { 
+const Footer = ({fecha}) => { 
     return (
         <footer>
-            <h3>Todos los derechos reservados</h3>
+            <h3>Todos los derechos reservados { fecha }  </h3>
         </footer>
     )
 }
