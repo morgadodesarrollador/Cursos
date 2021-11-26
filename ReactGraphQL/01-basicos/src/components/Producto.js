@@ -1,10 +1,14 @@
 import React from "react";
 
-const Producto = ({ producto }) =>{
+//destructuring, extraemos las propiedades del PROP en variables
+const Producto = ({ producto, carrito, agregarProductoCarrito, productos }) =>{
     const { nombre, precio, id } = producto;
-    // agregar producto al carrito de
+    // agregar producto al carrito 
     const seleccionarProducto = (id) => {
-        console.log('comprando el producto ', id );
+        //filter itera en productos e instancia cada producto. 
+        //hace un return del producto que verifica la id
+        const prod = productos.filter( producto => producto.id === id)[0];
+        console.log(prod);
     }
     return (
         <div> 
