@@ -10,8 +10,8 @@ function App() {
   const [ productos, saveProductos ] = useState([ // valores iniciales
     { id: 1, nombre: 'camisa ReactJS', precio: 50 }, 
     { id: 2, nombre: 'camisa NodeJS', precio: 30 },
-    { id: 2, nombre: 'camisa VueJS', precio: 40 },
-    { id: 2, nombre: 'camisa AngularJS', precio: 55 }
+    { id: 3, nombre: 'camisa VueJS', precio: 40 },
+    { id: 4, nombre: 'camisa AngularJS', precio: 55 }
   ]); 
 
   const fecha = new Date().getFullYear();
