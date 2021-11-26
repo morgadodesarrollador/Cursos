@@ -9,6 +9,12 @@ const Producto = ({ producto, carrito, agregarProductoCarrito, productos }) =>{
         //hace un return del producto que verifica la id
         const prod = productos.filter( producto => producto.id === id)[0];
         console.log(prod);
+        // NO carrito.push(prod). El STATE Carrito no se modifica directamente
+        agregarProductoCarrito([
+            //esta función automáticamente añade el producto al state carrito
+            ...carrito, //operador Spread: copia el array del carrito
+            prod
+        ]);
     }
     return (
         <div> 
