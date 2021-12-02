@@ -8,6 +8,8 @@ function App() {
   //crear una lista de productos
   //destructuring [state, función que ayuda a reescribir (agrega/elimina elementos del state]
   //stete de Producto
+  const [datos, setdatos ] = useState([1,2,2]);
+  console.log (datos, setdatos);
   const [ productos, saveProductos ] = useState([ // valores iniciales
     { id: 1, nombre: 'camisa ReactJS', precio: 50 }, 
     { id: 2, nombre: 'camisa NodeJS', precio: 30 },
