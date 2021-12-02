@@ -1,0 +1,9 @@
+
+.carrito {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background-color: rgba (0,0,0,.6);
+    width: 400px;
+    min-height: 200px;
+}

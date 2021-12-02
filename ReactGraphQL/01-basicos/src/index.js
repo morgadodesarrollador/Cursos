@@ -1,11 +1,15 @@
 import React from 'react';
+import './index.css';
+//permite a React acceder al DOM. Hace renderizacione en el HTML
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
+//import * as serviceWorker from './serviceWorker';
+//const divRoot = document.querySelector('#root');
+//ReactDOM.render(<App/>, divRoot);
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App saludo="hola" />
   </React.StrictMode>,
   document.getElementById('root')
 );

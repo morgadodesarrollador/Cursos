@@ -1,5 +1,4 @@
 import React from "react";
-
 //destructuring, extraemos las propiedades del PROP en variables
 const Producto = ({ producto, carrito, agregarProductoCarrito, productos }) =>{
     const { nombre, precio, id } = producto;
@@ -16,8 +15,10 @@ const Producto = ({ producto, carrito, agregarProductoCarrito, productos }) =>{
             prod
         ]);
     }
+    // <> </> equivale a <Fragments></Fragments> y no es preciso realizar la importación
     return (
-        <div> 
+        
+        <> 
             <h2>{ nombre } </h2>
             <p>$  { precio }</p>
             <button
@@ -27,7 +28,7 @@ const Producto = ({ producto, carrito, agregarProductoCarrito, productos }) =>{
                 onClick={ () =>  seleccionarProducto (id) } 
                 //id="comprar"
             >Comprar</button>
-         </div>
+         </>
 
     )
 }
