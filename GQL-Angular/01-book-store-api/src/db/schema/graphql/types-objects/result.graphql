@@ -1,0 +1,10 @@
+
+#Definir Result de la API
+
+#Devuelve la info de la union, de Book y People
+type Result {
+  status: Boolean!
+  message: String!
+  list: [DataBD!]
+  item: DataBD
+}

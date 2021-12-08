@@ -1,0 +1,6 @@
+
+type Mutation {
+  addBook(book: BookInput!): Result!
+  updateBook(book: BookInput!): Result!
+  deleteBook(id: ID): Result!
+}
