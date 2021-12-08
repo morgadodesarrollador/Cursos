@@ -3,6 +3,8 @@ import compression from "compression";
 import express, { Application } from "express";
 import { GraphQLSchema } from "graphql";
 import { createServer, Server } from "http";
+import environments from "./config/environment";
+
 const typeDefs = require('./db/schema');
 const resolvers = require('./db/resolvers');
 
@@ -10,7 +12,7 @@ class GraphQLServer {
     //propiedades
     private app!: Application;
     private httpServer!: Server;
-    private readonly DEFAULT_PORT = 3025;
+    private readonly DEFAULT_PORT = (process.env.PORT) ? +process.env.PORT : 3025;
     private schema!: GraphQLSchema;
 
     constructor( schema: GraphQLSchema){
@@ -22,11 +24,17 @@ class GraphQLServer {
     }
     
     private init() {
+        this.initializeEnvironments();
         this.configExpress();
         this.configApolloExpress();
         this.configRoutes();
     }
-
+    private initializeEnvironments(){
+        if (process.env.NODE_ENV !== 'production') {
+            const envs = environments;
+            console.log(envs);
+        }
+    }
     private configExpress(){
         this.app = express();
         this.app.use(compression());
