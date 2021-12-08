@@ -1,0 +1,42 @@
+{
+  "name": "book-store-api",
+  "version": "1.0.0",
+  "description": "proyecto inicial graphql",
+  "main": "build/app.js",
+  "scripts": {
+    "start": "node build/app.js",
+    "build": "npx tsc -p . && ncp src/schema build/schema",
+    "dev": "nodemon \"./src/app.ts\" --exec \"ts-node\" \"./src/app.ts\" -e ts,graphql,json,js",
+    "lint": "npx eslint . --ext .ts",
+    "lint.fix": "npx eslint . --ext .ts --fix"
+  },
+  "keywords": [
+    "graphql",
+    "union",
+    "query",
+    "mutation",
+    "apollo-server-express-3"
+  ],
+  "author": "Jose Antonio Morgado <morgado@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "@graphql-tools/load-files": "^6.4.0",
+    "apollo-server-express": "^3.5.0",
+    "compression": "^1.7.4",
+    "express": "^4.17.1",
+    "graphql": "^15.7.2",
+    "graphql-import-node": "^0.0.4",
+    "graphql-tools": "^8.2.0",
+    "ncp": "^2.0.0",
+    "typescript": "^4.4.4"
+  },
+  "devDependencies": {
+    "@types/compression": "^1.7.2",
+    "@types/express": "^4.17.13",
+    "@types/graphql": "^14.5.0",
+    "@types/node": "^16.11.7",
+    "@graphql-tools/load-files": "^6.4.0",
+    "nodemon": "^2.0.15",
+    "ts-node": "^10.4.0"
+  }
+}

@@ -1,0 +1,71 @@
+type Query {
+  hello: String!
+  helloWithName(name: String): String!
+  peopleNumber: Data!
+  # Lista de los elementos
+  bookList: Result!
+  peopleList: Result!
+  # Elementos seleccionados
+  book(id: ID!): Result!
+  people(id: ID!): Result!
+}
+
+type Mutation {
+  addBook(book: BookInput!): Result!
+  updateBook(book: BookInput!): Result!
+  deleteBook(id: ID): Result!
+}
+
+union DataBD = Book | People
+
+# Informaciómn de los libros
+type Book {
+  id: ID!
+  title: String!
+  isbn: String!
+  pageCount: Int!
+  publishedDate: String
+  thumbnailUrl: String
+  shortDescription: String
+  longDescription: String
+  status: String
+  authors: [String!]!
+  byPeoplesBuy: [People] # nuevo tipo --> resolvers en types.ts
+}
+input BookInput{
+  id: ID
+  title: String!
+  isbn: String!
+  pageCount: Int!
+  publishedDate: String
+  thumbnailUrl: String
+  shortDescription: String
+  longDescription: String
+  status: StatusEnum = UNPUBLISH
+  "Autores que han escrito el libro"
+  authors: [String!]!
+}
+enum StatusEnum{
+  PUBLISH
+  UNPUBLISH
+}
+type People {
+  id: ID!
+  name: String!
+  email: String!
+  website: String
+  github: String
+  twitter: String
+  books: [String!]!
+  #Libros que ha comprado una persona
+  booksBuy: [Book] # nuevo tipo --> resolvers en types.ts
+}
+#Definir Result de la API
+
+#Devuelve la info de la union, de Book y People
+type Result {
+  status: Boolean!
+  message: String!
+  list: [DataBD!]
+  item: DataBD
+}
