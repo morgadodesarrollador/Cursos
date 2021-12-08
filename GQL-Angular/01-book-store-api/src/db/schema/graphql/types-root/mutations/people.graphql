@@ -1,0 +1,5 @@
+type Mutation {
+  addPeople(people: PeopleInput!): Result!
+  updatePeople(people: PeopleInput!): Result!
+  deletePeople(id: ID!): Result!
+}

@@ -1,10 +1,10 @@
-import { IResult } from './../../interfaces/IResult';
+import { IResult } from '../../../interfaces/IResult';
 
 import { IResolvers } from "@graphql-tools/utils";
-import { IBook } from '../../interfaces/IBook';
-import data from '../data';
+import { IBook } from '../../../interfaces/IBook';
+import data from '../../data';
 
-const mutationsResolvers: IResolvers = {
+const mutationsBookResolvers: IResolvers = {
     Mutation: { //tipo raiz
         addBook: (_:void, args: {book: IBook}): IResult => {
             console.log(args.book);
@@ -67,4 +67,4 @@ const mutationsResolvers: IResolvers = {
     }
 }
 
-export default mutationsResolvers;
+export default mutationsBookResolvers;
