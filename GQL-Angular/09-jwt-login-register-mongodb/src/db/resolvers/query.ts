@@ -1,11 +1,23 @@
 
 import { IResolvers } from "@graphql-tools/utils";
-import { IResult } from "../../interfaces/IResult";
+import { IResult } from "../interfaces/IResult";
 import data from "../data";
+import { IUser } from "../interfaces/IUser";
 
 const queryResolvers: IResolvers = {
     Query: {
-        
+        users: () : Array<IUser> => {
+            return [
+                {
+                    id: "1",
+                    name: "Jose",
+                    lastname: "morgado",
+                    email: "moragdo@gmail.com",
+                    password: "1234",
+                    registerDate: ""
+                }
+            ];
+        }
     }
 }
 

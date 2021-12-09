@@ -1,6 +1,6 @@
 
 import { IBook } from "./IBook";
-import { IPeople } from "./IPeople";
+import { IPeople } from "./IUser";
 
 
 export interface IResult {
