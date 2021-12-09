@@ -1,0 +1,7 @@
+
+type Result {
+  status: Boolean!
+  message: String!
+  list: [User!]
+  item: User
+}

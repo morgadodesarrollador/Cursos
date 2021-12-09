@@ -1,0 +1,18 @@
+" datos del usuario"
+type User {
+  id: ID! "lo genera mongodb"
+  #data: dataUser!
+  name: String!
+  lastname: String!
+  email: String!
+  password: String
+  registerDate: String!
+}
+
+type dataUser {
+  name: String!
+  lastname: String!
+  email: String!
+  password: String
+  registerDate: String!
+}
