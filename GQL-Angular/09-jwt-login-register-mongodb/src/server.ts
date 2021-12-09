@@ -3,6 +3,7 @@ import compression from "compression";
 import express, { Application } from "express";
 import { GraphQLSchema } from "graphql";
 import { createServer, Server } from "http";
+import Database from "./config/database";
 import environments from "./config/environment";
 
 const typeDefs = require('./db/schema');
@@ -42,10 +43,19 @@ class GraphQLServer {
     }
 
     private async configApolloExpress() {
+        //Inicializar la Base de Datos 
+        const database = new Database();
+        const db = database.init();
 
+        //contexto --> info a compartir en los resolvers: instancia de la BD, Token, obj pup/shup para actualizaciones en tiempo real con los subscriptions
+        const context = async() => {
+            return { db }
+        };
+        //añadimos el contexto a las propiedades de ApolloServer
         const apolloServer = new ApolloServer({
             schema: this.schema,
-            introspection: true
+            introspection: true,
+            context
         });
         await apolloServer.start();
         apolloServer.applyMiddleware({app: this.app, cors: true})
