@@ -45,8 +45,8 @@ class GraphQLServer {
     private async configApolloExpress() {
         //Inicializar la Base de Datos 
         const database = new Database();
-        const db = database.init();
-
+        const db = await database.init();
+        
         //contexto --> info a compartir en los resolvers: instancia de la BD, Token, obj pup/shup para actualizaciones en tiempo real con los subscriptions
         const context = async() => {
             return { db }

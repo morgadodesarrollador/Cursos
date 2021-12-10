@@ -16,6 +16,9 @@ class Database {
       this.db = mongoClient.db();
       console.log(`STATUS: ${chalk.greenBright("ONLINE")}`);
       console.log(`DATABASE: ${chalk.greenBright(this.db.databaseName)}`);
+      const lastId = await this.db.collection("users")
+                .find().limit(1).sort({registerDate: -1}).toArray();
+      //console.log(lastId);
       //console.log (`STATUS: online` );
       //console.log (`DATABASE: ${this.db.databaseName}` );
     } catch (error) {

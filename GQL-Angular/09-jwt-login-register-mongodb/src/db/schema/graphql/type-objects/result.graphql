@@ -2,6 +2,6 @@
 type Result {
   status: Boolean!
   message: String!
-  list: [User!]
-  item: User
+#  data: [User!]
+  data: User 
 }

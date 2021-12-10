@@ -1,7 +1,6 @@
 
 import { IResolvers } from "@graphql-tools/utils";
 import { IResult } from "../interfaces/IResult";
-import data from "../data";
 import { IUser } from "../interfaces/IUser";
 
 const queryResolvers: IResolvers = {
