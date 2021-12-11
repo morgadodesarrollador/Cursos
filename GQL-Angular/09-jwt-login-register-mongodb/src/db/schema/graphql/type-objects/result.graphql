@@ -1,7 +1,5 @@
-
 type Result {
   status: Boolean!
   message: String!
-#  data: [User!]
   data: User 
 }

@@ -2,7 +2,6 @@
 
 input UserInput {
   id: ID
-  #data: dataUser
   name: String!
   lastname: String!
   email: String!

@@ -1,5 +1,5 @@
-
 export interface IUser {
+  _id?: any;
   id?: string;
   name: string;
   lastname: string;
@@ -7,4 +7,3 @@ export interface IUser {
   password?: string
   registerDate: string;
 }
-

@@ -1,7 +1,7 @@
 import { IResolvers } from "@graphql-tools/utils";
 import { Db } from "mongodb";
-import { IUser } from "../interfaces/IUser";
-import { IResult } from "../interfaces/IResult";
+import { IUser } from "../../../interfaces/IUser";
+import { IResult } from "../../../interfaces/IResult";
 const mutationResolvers: IResolvers = {
     Mutation: { 
         // root, parametros de entrada, contexto de la bd retornado

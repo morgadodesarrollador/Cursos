@@ -7,3 +7,4 @@ export interface IResult {
     message: string;
     data?: IUser;
 }
+
