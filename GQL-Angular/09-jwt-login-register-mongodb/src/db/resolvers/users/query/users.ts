@@ -1,5 +1,5 @@
+import { IUser } from './../../../interfaces/IUser';
 import { IResolvers } from "@graphql-tools/utils";
-import { IUser } from "../../../interfaces/IUser";
 import { Db } from "mongodb";
 import { IResult, IResultToken } from "../../../interfaces/IResult";
 import bcrypt from "bcrypt";
@@ -45,6 +45,21 @@ const queryResolvers: IResolvers = {
                     message: `error Usuario ${error} no cargado `,
                 };
             });
+        },
+        me: async (_: void, __: unknown, context: { token: string }): Promise<IResult> => {
+            console.log (context.token);
+            const info = new JWT().verify(context.token);
+            if (info === "Token invalido"){
+                return {
+                    status: false,
+                    message: "token invalido o caducados",    
+                }
+            }
+            return {
+                status: true,
+                message: "Token OK",
+                data: (info as unknown as { user: IUser}).user //ver el sign
+            };
         }
     },
 }
