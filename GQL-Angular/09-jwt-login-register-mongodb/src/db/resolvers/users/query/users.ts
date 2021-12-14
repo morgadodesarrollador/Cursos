@@ -2,6 +2,7 @@ import { IResolvers } from "@graphql-tools/utils";
 import { IUser } from "../../../interfaces/IUser";
 import { Db } from "mongodb";
 import { IResult } from "../../../interfaces/IResult";
+import bcrypt from "bcrypt";
 const queryResolvers: IResolvers = {
     Query: {
         users: async(_: void, __:unknown, context: { db: Db }) : Promise <Array<IUser>> => {
@@ -11,15 +12,23 @@ const queryResolvers: IResolvers = {
         },
         login: async(_: void, args: { email: string, password: string }, context: { db: Db }): Promise<IResult> =>  {
             console.log(args);
+            // si existe el usuario
             return await context.db.collection("users").findOne(
-                { email: args.email, password: args.password }
+                { email: args.email }
             ).then( (userD) => {
-               // delete userD?._id;
                 console.log(userD);
                 if (!userD) {
                     return {
                         status: true,
-                        message: 'Usuario No encontrado'
+                        message: 'Usuario No existe. Verifica el email'
+                    };
+                }
+                // delete userD?._id;
+               //comprobamos el password encriptado 
+                if (!bcrypt.compareSync(args.password, userD.password)){
+                    return {
+                        status: true,
+                        message: 'El password no es correcto',
                     };
                 }
                 return {
