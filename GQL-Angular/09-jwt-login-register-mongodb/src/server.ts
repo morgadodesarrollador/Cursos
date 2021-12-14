@@ -5,6 +5,7 @@ import { GraphQLSchema } from "graphql";
 import { createServer, Server } from "http";
 import Database from "./config/database";
 import environments from "./config/environment";
+import { IContext } from "./db/interfaces/IContext";
 
 const typeDefs = require('./db/schema');
 const resolvers = require('./db/resolvers');
@@ -48,8 +49,11 @@ class GraphQLServer {
         const db = await database.init();
         
         //contexto --> info a compartir en los resolvers: instancia de la BD, Token, obj pup/shup para actualizaciones en tiempo real con los subscriptions
-        const context = async() => {
-            return { db }
+        const context = async({ req, connection }: IContext) => {
+            //obtener el token desde las cabeceras de la request
+            const token = req ? req.headers.authorization : connection.authorization;
+            console.log("-->",token);
+            return { db, token } //los usamos como 3er parámetro en los resolvers
         };
         //añadimos el contexto a las propiedades de ApolloServer
         const apolloServer = new ApolloServer({

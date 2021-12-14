@@ -24,7 +24,6 @@ const queryResolvers: IResolvers = {
                         message: 'Usuario No existe. Verifica el email'
                     };
                 }
-                // delete userD?._id;
                //comprobamos el password encriptado 
                 if (!bcrypt.compareSync(args.password, userD.password)){
                     return {
@@ -32,6 +31,9 @@ const queryResolvers: IResolvers = {
                         message: 'El password no es correcto',
                     };
                 }
+               // delete userD?._id;
+                delete userD.password;
+                delete userD.registerDate;
                 return {
                     status: true,
                     message: 'Usuario cargado',
