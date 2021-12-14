@@ -1,8 +1,9 @@
 import { IResolvers } from "@graphql-tools/utils";
 import { IUser } from "../../../interfaces/IUser";
 import { Db } from "mongodb";
-import { IResult } from "../../../interfaces/IResult";
+import { IResult, IResultToken } from "../../../interfaces/IResult";
 import bcrypt from "bcrypt";
+import JWT from "../../../../lib/jwt";
 const queryResolvers: IResolvers = {
     Query: {
         users: async(_: void, __:unknown, context: { db: Db }) : Promise <Array<IUser>> => {
@@ -10,7 +11,7 @@ const queryResolvers: IResolvers = {
             console.log(users);
             return users;
         },
-        login: async(_: void, args: { email: string, password: string }, context: { db: Db }): Promise<IResult> =>  {
+        login: async(_: void, args: { email: string, password: string }, context: { db: Db }): Promise<IResultToken> =>  {
             console.log(args);
             // si existe el usuario
             return await context.db.collection("users").findOne(
@@ -34,7 +35,7 @@ const queryResolvers: IResolvers = {
                 return {
                     status: true,
                     message: 'Usuario cargado',
-                    data: userD as IUser
+                    token: new JWT().sign(userD as IUser, 60 )
                 };
             }).catch( (error) => {
                 return {

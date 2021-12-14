@@ -3,3 +3,9 @@ type Result {
   message: String!
   data: User 
 }
+
+type ResultToken {
+  status: Boolean!
+  message: String!
+  token: String! 
+}

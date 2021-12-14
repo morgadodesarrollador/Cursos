@@ -7,4 +7,10 @@ export interface IResult {
     message: string;
     data?: IUser;
 }
+export interface IResultToken {
+    status: boolean;
+    message: string;
+    token?: string;
+}
+
 
