@@ -2,6 +2,8 @@ import { IResolvers } from "@graphql-tools/utils";
 import { Db } from "mongodb";
 import { IUser } from "../../../interfaces/IUser";
 import { IResult } from "../../../interfaces/IResult";
+import  bcrypt  from "bcrypt";
+
 const mutationResolvers: IResolvers = {
     Mutation: { 
         // root, parametros de entrada, contexto de la bd retornado
@@ -27,7 +29,11 @@ const mutationResolvers: IResolvers = {
             // comprobar si existe el usuario en la BD con el mismo email. Si existe mostrar error
             args.user.id = (lastId.length === 0) ? "1" : String(+lastId[0].id + 1);
             args.user.registerDate = new Date().toISOString();
+            //encriptar el password
+            args.user.password = bcrypt.hashSync(args.user.password, 10);
             console.log(args.user);
+
+            //insertar el usuario en la BD
             return await context.db.collection("users").insertOne(args.user)
                 .then( (data) => {
                     console.log(`data: ${ data }`);
