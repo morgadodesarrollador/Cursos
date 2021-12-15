@@ -1,9 +1,10 @@
 import { IUser } from './../../../interfaces/IUser';
 import { IResolvers } from "@graphql-tools/utils";
 import { Db } from "mongodb";
-import { IResult, IResultToken } from "../../../interfaces/IResult";
+import { IResultToken, IResultUser } from "../../../interfaces/IResult";
 import bcrypt from "bcrypt";
 import JWT from "../../../../lib/jwt";
+import { ELEMENTS_SELECT } from '../../../../config/constants';
 const queryResolvers: IResolvers = {
     Query: {
         users: async(_: void, __:unknown, context: { db: Db }) : Promise <Array<IUser>> => {
@@ -21,7 +22,8 @@ const queryResolvers: IResolvers = {
                 if (!userD) {
                     return {
                         status: true,
-                        message: 'Usuario No existe. Verifica el email'
+                        message: 'Usuario No existe. Verifica el email',
+                        elementSelect: ELEMENTS_SELECT.TOKEN
                     };
                 }
                //comprobamos el password encriptado 
@@ -29,6 +31,7 @@ const queryResolvers: IResolvers = {
                     return {
                         status: true,
                         message: 'El password no es correcto',
+                        elementSelect: ELEMENTS_SELECT.TOKEN
                     };
                 }
                // delete userD?._id;
@@ -37,27 +40,32 @@ const queryResolvers: IResolvers = {
                 return {
                     status: true,
                     message: 'Usuario cargado',
-                    token: new JWT().sign(userD as IUser, 3600 )
+                  //  token: new JWT().sign(userD as IUser, 3600 )
+                    token: new JWT().sign(userD as IUser, 3600 ),
+                    elementSelect: ELEMENTS_SELECT.TOKEN
                 };
             }).catch( (error) => {
                 return {
                     status: false,
                     message: `error Usuario ${error} no cargado `,
+                    elementSelect: ELEMENTS_SELECT.TOKEN
                 };
             });
         },
-        me: async (_: void, __: unknown, context: { token: string }): Promise<IResult> => {
+        me: async (_: void, __: unknown, context: { token: string }): Promise<IResultUser> => {
             const info = new JWT().verify(context.token);
             if (info === "Token invalido"){
                 return {
                     status: false,
-                    message: "token invalido o caducados",    
+                    message: "token invalido o caducados", 
+                    elementSelect: ELEMENTS_SELECT.USER   
                 }
             }
             return {
                 status: true,
                 message: "Token OK",
-                data: (info as unknown as { user: IUser}).user //ver el sign
+                data: (info as unknown as { user: IUser}).user, //ver el sign,
+                elementSelect: ELEMENTS_SELECT.USER
             };
         }
     },

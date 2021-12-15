@@ -1,11 +1,13 @@
-type Result {
+type ResultUser implements ResultAPI {
   status: Boolean!
   message: String!
+  elementSelect: String!
   data: User 
 }
 
-type ResultToken {
+type ResultToken implements ResultAPI{
   status: Boolean!
   message: String!
+  elementSelect: String!
   token: String! 
 }
