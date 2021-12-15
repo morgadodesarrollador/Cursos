@@ -3,6 +3,7 @@ import { Db } from "mongodb";
 import { IUser } from "../../../interfaces/IUser";
 import { IResult } from "../../../interfaces/IResult";
 import  bcrypt  from "bcrypt";
+import JWT from "../../../../lib/jwt";
 
 const mutationResolvers: IResolvers = {
     Mutation: { 
@@ -31,12 +32,10 @@ const mutationResolvers: IResolvers = {
             args.user.registerDate = new Date().toISOString();
             //encriptar el password
             args.user.password = bcrypt.hashSync(args.user.password, 10);
-            console.log(args.user);
 
             //insertar el usuario en la BD
             return await context.db.collection("users").insertOne(args.user)
                 .then( (data) => {
-                    console.log(`data: ${ data }`);
                     return {
                         status: true,
                         message: 'El usuario ha sido insertado',
@@ -47,6 +46,43 @@ const mutationResolvers: IResolvers = {
                     return {
                         status: false,
                         message: `Error: ${ error }`,
+                    };
+                });
+        },
+        update: async(_: void, args: { user: IUser }, context: { db: Db, token: string }): Promise<IResult> => {
+            //verificar el token para poder actualizar
+            const info = new JWT().verify(context.token);
+            if (info === "Token invalido"){
+                return {
+                    status: false,
+                    message: "token invalido o caducados",    
+                }
+            }
+            //verificar que el usuario existe
+            const userData: IUser = await context.db.collection("users").findOne({ id: args.user.id}) as IUser;
+            if (!userData){
+                return {
+                    status: false,
+                    message: "el usuario no se puede actualizar, no existe"
+                }
+            }
+            //modificar la info sie el usuario existe
+            //el password Y FECHA DE REGISTRO no lo modificamos aqui y lo dejamos como esta
+            args.user = Object.assign(args.user, { password: userData.password, registerDate: userData.registerDate});
+            return await context.db.collection("users")
+                    .updateOne({id: args.user.id},{$set: args.user} )
+                .then( (data) => {
+                    console.log("actualizado correctamente");
+                    return {
+                        status: true,
+                        message: 'El usuario ha sido actualizado correctamente',
+                        data: args.user
+                    };
+                })
+                .catch( (error) => {
+                    return {
+                        status: false,
+                        message: `Error: No actualizadio ${ error }`,
                     };
                 });
         }

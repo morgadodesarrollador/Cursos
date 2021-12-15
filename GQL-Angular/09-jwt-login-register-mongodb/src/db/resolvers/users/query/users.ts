@@ -37,7 +37,7 @@ const queryResolvers: IResolvers = {
                 return {
                     status: true,
                     message: 'Usuario cargado',
-                    token: new JWT().sign(userD as IUser, 60 )
+                    token: new JWT().sign(userD as IUser, 3600 )
                 };
             }).catch( (error) => {
                 return {
@@ -47,7 +47,6 @@ const queryResolvers: IResolvers = {
             });
         },
         me: async (_: void, __: unknown, context: { token: string }): Promise<IResult> => {
-            console.log (context.token);
             const info = new JWT().verify(context.token);
             if (info === "Token invalido"){
                 return {
