@@ -4,7 +4,19 @@ import { Injectable } from '@nestjs/common';
 export class CategoryService {
 
     async getMany() {
-        return;
+        return [{
+            id: '111',
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            name: 'Categoria 1 de Prueba'
+        },
+        {
+            id: '222',
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            name: 'Categoria 2 de Prueba'
+        }
+    ];
     }
     async get() {
         return;
