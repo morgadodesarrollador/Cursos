@@ -1,0 +1,18 @@
+version: "3"
+services:
+  mongodb:
+    container_name: mongodb
+    image: mongo:4.4.6
+    volumes:
+      - ./src/core/prisma/tmp/mongodb:/data/db
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=prisma
+      - MONGO_INITDB_ROOT_PASSWORD=prisma
+      - MONGO_INITDB_DATABASE=prisma
+    networks:
+      - node-webapp-network
+networks:
+  node-webapp-network:
+    driver: bridge
