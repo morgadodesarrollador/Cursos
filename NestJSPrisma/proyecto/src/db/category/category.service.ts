@@ -1,22 +1,13 @@
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from 'src/core/prisma/prisma.service';
 
 @Injectable()
 export class CategoryService {
-
+    constructor (private readonly dataPrisma: PrismaService){    }
+    //son los métodos de la API generada por prisma
     async getMany() {
-        return [{
-            id: '111',
-            createdAt: new Date(),
-            updatedAt: new Date(),
-            name: 'Categoria 1 de Prueba'
-        },
-        {
-            id: '222',
-            createdAt: new Date(),
-            updatedAt: new Date(),
-            name: 'Categoria 2 de Prueba'
-        }
-    ];
+       return await this.dataPrisma.category.findMany();
+        
     }
     async get() {
         return;

@@ -7,7 +7,7 @@ import { join } from 'path';
         GraphQLModule.forRoot({
             //para tener la captura de los datos a través de la url de graphql
             introspection: true,
-            //enlazamos con el fichero schema de graphql
+            //genera automáticamente el fichero schema de graphql -->api-schema.gql
             autoSchemaFile: join(process.cwd(), 'src/core/graphql/api-schema.gql'),
         })
     ]
