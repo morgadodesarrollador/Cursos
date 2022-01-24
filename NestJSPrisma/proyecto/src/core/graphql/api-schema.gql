@@ -16,4 +16,5 @@ scalar DateTime
 
 type Query {
   categories: [Category!]!
+  category(id: String!): Category!
 }

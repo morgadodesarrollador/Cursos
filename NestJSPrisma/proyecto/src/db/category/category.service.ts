@@ -9,8 +9,10 @@ export class CategoryService {
        return await this.dataPrisma.category.findMany();
         
     }
-    async get() {
-        return;
+    async get(id: string) {
+        return await this.dataPrisma.category.findUnique({
+            where: { id }
+        });
     }
     async create() {
         return;
